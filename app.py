@@ -11,24 +11,21 @@ st.title("🚗 USA Car Accidents (2016–2023) Dashboard")
 
 @st.cache_data
 def load_data():
-    df = pd.read_csv("US_Accidents_March23.csv", low_memory=False)
+    df = pd.read_csv('US_Accidents_March23.csv', low_memory=False)
 
-    # Convert Start_Time to datetime
-    df['Start_Time'] = pd.to_datetime(df['Start_Time'], errors='coerce')
+    # Convert Start_Time to datetime and drop rows where conversion failed
+    df['Start_Time'] = pd.to_datetime(df['Start_Time'], format='mixed',dayfirst=True)
+    df = df.dropna(subset=['Start_Time', 'Start_Lat', 'Start_Lng'])
 
-    # Drop rows with missing location data
-    df = df.dropna(subset=['Start_Lat', 'Start_Lng'])
+    # Sample data
+    df = df.sample(n=2_000_000, random_state=42)
 
-    # Sample the data (change n as needed)
-    df = df.sample(n=2_000_000, random_state=42)  # Or use frac=0.1 for 10%
-
-    # Feature engineering
+    # Extract time features
     df['Hour'] = df['Start_Time'].dt.hour
     df['DayOfWeek'] = df['Start_Time'].dt.day_name()
     df['Date'] = df['Start_Time'].dt.date
 
     return df
-
 df = load_data()
 
 # Sidebar filters
