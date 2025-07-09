@@ -1,5 +1,3 @@
-
-
 # 🚗 USA Car Accidents EDA-Dashboard (2016–2023)
 
 
@@ -46,7 +44,7 @@ How do different weather types (rain, snow, fog, clear skies) impact accident ra
 
 ### 🛠 Features
 
-Filter accidents by state, weather conditions, day of week, and hour of day
+Filter accidents by State, weather conditions, day of week, and hour of day
 
 
 
